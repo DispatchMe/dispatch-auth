@@ -1,7 +1,7 @@
-require 'dispatch/auth/version'
-
 module Dispatch
   module Auth
-    # Your code goes here...
+    def self.authenticate_request
+      puts 'Called Dispatch.authenticate_request'
+    end
   end
 end
