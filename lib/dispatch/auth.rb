@@ -20,9 +20,11 @@ module Dispatch
 
     def self.get_auth_header(env)
       r = Rack::Request.new(env)
-      r.env['HTTP_AUTHORIZATION'] ||
-        r.params['access_token'] || r.params['bearer_token'] ||
-        raise(Dispatch::Auth::TokenMissingError)
+      header = r.env['HTTP_AUTHORIZATION']
+      token = r.params['access_token'] || r.params['bearer_token']
+      header ||= "Bearer #{token}" if token
+      raise(Dispatch::Auth::TokenMissingError) unless header
+      header
     end
   end
 end
