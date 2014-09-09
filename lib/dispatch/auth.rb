@@ -1,5 +1,3 @@
-require 'faraday'
-
 module Dispatch
   module Auth
     def self.authenticate_write_request!(env)
