@@ -2,7 +2,6 @@
 lib = File.expand_path('../lib/', __FILE__)
 $:.unshift lib unless $:.include?(lib)
 
-require 'dispatch'
 require 'dispatch/auth/version'
 
 Gem::Specification.new do |spec|

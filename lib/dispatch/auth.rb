@@ -1,3 +1,4 @@
+require 'faraday'
 require_relative 'auth/errors'
 
 module Dispatch
