@@ -1,6 +1,3 @@
-source 'https://rubygems.org'
+source "https://rubygems.org"
 
-# Specify your gem's dependencies in dispatch-auth.gemspec
-gemspec
-
-gem 'faraday'
+gem "httparty", "~> 0.13.0"
