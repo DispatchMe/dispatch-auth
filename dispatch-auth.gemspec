@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.name          = 'dispatch-auth'
   spec.version       = Dispatch::Auth::VERSION
   spec.authors       = ['rilian']
-  spec.email         = ['dmitriyis@gmail.com']
+  spec.email         = ['dmitriyis@gmail.com', 'creeonix@gmail.com']
   spec.summary       = 'Gem to authenticate requests for Dispatch APIs'
   spec.description   = 'Gem to authenticate requests for Dispatch APIs, by passing Authorization token to Dispatch Users API'
   spec.homepage      = 'http://dispatch.me'
