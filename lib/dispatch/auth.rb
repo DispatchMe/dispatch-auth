@@ -7,19 +7,16 @@ module Dispatch
 
     class << self
       def authenticate_request!(env)
-        headers.merge!('Content-Type' => 'application/json')
-        headers.merge!('Authorization' => get_auth_header(env)) || raise(Dispatch::Auth::TokenMissingError)
-
-        response = get(ENV['AUTH_ENDPOINT_URL'])
-
-        case response.code
-          when 401
-            raise Dispatch::Auth::NotAuthenticatedError
-          when 403
-            raise Dispatch::Auth::NotAuthorizedError
-        end
+        prepare_headers(env)
+        resolve_errors get(ENV['AUTH_ENDPOINT_URL'])
       end
 
+      def get_me(env)
+        prepare_headers(env)
+        resolve_errors get(ENV['AUTH_ENDPOINT_URL'])
+      end
+
+    private
       def get_auth_header(env)
         r = Rack::Request.new(env)
         header = r.env['HTTP_AUTHORIZATION']
@@ -28,7 +25,21 @@ module Dispatch
         raise(Dispatch::Auth::TokenMissingError) unless header
         header
       end
-      private :get_auth_header
+
+      def prepare_headers(env)
+        headers.merge!('Content-Type' => 'application/json')
+        headers.merge!('Authorization' => get_auth_header(env)) || raise(Dispatch::Auth::TokenMissingError)
+      end
+
+      def resolve_errors(response)
+        case response.code
+        when 401
+          raise Dispatch::Auth::NotAuthenticatedError
+        when 403
+          raise Dispatch::Auth::NotAuthorizedError
+        end
+        response
+      end
     end
   end
 end
